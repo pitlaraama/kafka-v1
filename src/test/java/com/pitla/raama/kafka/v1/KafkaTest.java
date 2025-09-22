@@ -3,6 +3,7 @@ package com.pitla.raama.kafka.v1;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.pitla.raama.kafka.v1.consumer.Consumer;
 import com.pitla.raama.kafka.v1.producer.Producer;
@@ -11,12 +12,13 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 public class KafkaTest {
 
 	private static Producer producerApp;
 	private static Consumer consumerApp;
-	private static final String TOPIC = "test-topic";
-	private static final String GROUP_ID = "test-group-" + UUID.randomUUID();
+	private static final String TOPIC = "raama-kafka";
+	private static final String GROUP_ID = "test-group-raama";
 
 	@BeforeAll
 	static void setup() {
@@ -33,14 +35,14 @@ public class KafkaTest {
 	@Test
 	void testProducerSendsMessage() {
 		String key = "test-key";
-		String value = "test-value";
+		String value = "test-value-producer";
 		assertDoesNotThrow(() -> producerApp.sendMessage(TOPIC, key, value));
 	}
 
 	@Test
 	void testConsumerReceivesMessage() throws InterruptedException {
 		String key = "test-key";
-		String value = "test-value";
+		String value = "test-value=rama-pc";
 		producerApp.sendMessage(TOPIC, key, value);
 
 		boolean messageReceived = false;
@@ -61,9 +63,7 @@ public class KafkaTest {
 
 	// Helper method for testing
 	private boolean pollAndCheckMessage(Consumer consumer, String key, String value) {
-		// You need to add a method in your Consumer class to poll and return a boolean
-		// if message is found
-		// For now, this is a placeholder
+		consumer.pollMessages();
 		return false;
 	}
 }

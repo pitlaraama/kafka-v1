@@ -22,7 +22,7 @@ public class Consumer {
     public void pollMessages() {
         try {
             while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(5000));
                 for (ConsumerRecord<String, String> record : records) {
                     processRecord(record);
                 }
